@@ -10,21 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_151428) do
+ActiveRecord::Schema.define(version: 2019_11_04_153335) do
 
   create_table "answers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "question_id_id"
-    t.bigint "option_id_id"
+    t.bigint "question_id"
+    t.bigint "option_id"
+    t.bigint "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["option_id_id"], name: "index_answers_on_option_id_id"
-    t.index ["question_id_id"], name: "index_answers_on_question_id_id"
+    t.index ["option_id"], name: "index_answers_on_option_id"
+    t.index ["question_id", "option_id", "student_id"], name: "index_answers_on_question_id_and_option_id_and_student_id"
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["student_id"], name: "index_answers_on_student_id"
   end
 
   create_table "chapters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "chap_name"
+    t.string "chapter_name"
+    t.bigint "subject_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_chapters_on_subject_id"
   end
 
   create_table "exams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -40,13 +45,13 @@ ActiveRecord::Schema.define(version: 2019_11_04_151428) do
   end
 
   create_table "questions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "exam_question"
-    t.bigint "option_id_id"
+    t.string "question"
+    t.bigint "option_id"
     t.bigint "chapter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chapter_id"], name: "index_questions_on_chapter_id"
-    t.index ["option_id_id"], name: "index_questions_on_option_id_id"
+    t.index ["option_id"], name: "index_questions_on_option_id"
   end
 
   create_table "students", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -59,7 +64,7 @@ ActiveRecord::Schema.define(version: 2019_11_04_151428) do
   end
 
   create_table "subjects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "sub_name"
+    t.string "subject_name"
     t.bigint "exam_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

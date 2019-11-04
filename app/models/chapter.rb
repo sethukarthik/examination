@@ -1,4 +1,4 @@
 class Chapter < ApplicationRecord
-	belongs_to :topic
 	has_many :questions
+	belongs_to :subject
 end

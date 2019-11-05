@@ -1,0 +1,5 @@
+<%= form_for @answer, :as => :answer, :url => exams_path(@answer) do |f| %>
+	<%= select("Exam", "exam_id", Exam.all.collect { |p| [ p.exam_name, p.id ] }, {:prompt => "select option"}, {id: "exam_id"}) %>
+	<%= select("Subject", "subject_id", @subjects.all.collect { |p| [ p.subject_name, p.id ] }, {:prompt => "select option"},{id: "subject_id"}) %>
+	<%= select("Chapter", "chapter_id", @chapters.all.collect { |p| [ p.chapter_name, p.id ] }, {:prompt => "select option"},{id: "chapter_id"}) %>
+<% end %>
